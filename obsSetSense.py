@@ -1,10 +1,10 @@
 import obspython as obs
 from multiprocessing import shared_memory
 
-defaults_scene = ""
-to_scene       = ""
+defaults_scene      = ""
+to_scene            = ""
 playing_source_name = ""
-nowText = ""
+nowText             = ""
 
 #==================
 
@@ -17,7 +17,7 @@ def reload_scene():
 
     res = shared_memory.ShareableList(name='osumemory')
 
-    _play_state = res[1]#游戏状态，详细参考Gosumemory文档
+    _play_state = res[1]
 
     def _setText(_text):
         _textsource = obs.obs_get_source_by_name(playing_source_name)
@@ -30,7 +30,7 @@ def reload_scene():
     nowScene = obs.obs_frontend_get_current_scene()
     nowScenename = obs.obs_source_get_name(nowScene)
     obs.obs_source_release(nowScene)
-    if '_play_state' not in res or "".zfill(1024) not in res:#切换逻辑
+    if '_play_state' not in res or "".zfill(1024) not in res:
         _osutext = res[3]
         if nowText != _osutext:
             _setText(_osutext)
@@ -63,7 +63,6 @@ def script_update(settings):
     to_scene       = obs.obs_data_get_string(settings, "to_scene")
     playing_source_name = obs.obs_data_get_string(settings, "playing_source_name")
 
-
     obs.timer_remove(reload_scene)
 
     if "" not in (to_scene,defaults_scene):
@@ -73,19 +72,19 @@ def script_properties():
     props = obs.obs_properties_create()
 
     pyt = obs.obs_properties_add_list(props, "playing_source_name", "选择一个text用以显示\n一些额外信息(可留空)", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
-    sources = obs.obs_enum_sources()#取得来源列表
+    sources = obs.obs_enum_sources()
     if sources is not None:
         for source in sources:
             source_id = obs.obs_source_get_unversioned_id(source)
             name = obs.obs_source_get_name(source)
-            if source_id != "text_gdiplus" or source_id != "text_ft2_source":#加过滤器
+            if source_id != "text_gdiplus" or source_id != "text_ft2_source":
                 obs.obs_property_list_add_string(pyt, name, name)
 
         obs.source_list_release(sources)
 
     ds = obs.obs_properties_add_list(props, "defaults_scene", "默认场景", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
     ts = obs.obs_properties_add_list(props, "to_scene", "新场景", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
-    sceness = obs.obs_frontend_get_scenes()#取得场景列表
+    sceness = obs.obs_frontend_get_scenes()
     if sceness is not None:
         for scenes in sceness:
             scens_name = obs.obs_source_get_name(scenes)

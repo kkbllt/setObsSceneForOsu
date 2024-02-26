@@ -8,7 +8,6 @@ from multiprocessing import shared_memory
 class app():
 
     osuMemoryData = ['play_state',"_play_state",'mapstr', "".zfill(1024),"allGosumemoryData".zfill(6144)]
-    appState = 0
 
     def __init__(self, url="ws://127.0.0.1:24050/ws"):
         self.wsurl = url
@@ -33,6 +32,7 @@ class app():
 
 
     async def setOsuData(self, wsRes):
+        self.p[4] = wsRes
         wsRes = json.loads(wsRes)
         _mapdata = wsRes.get('menu', dict).get('bm', None)
         _mapselectmod = wsRes.get('menu', dict).get('mods', dict).get('str', None)
@@ -46,7 +46,6 @@ class app():
             if _play_state != self.p[1] or _osutext != self.p[3]:
                 self.p[1] = _play_state
                 self.p[3] = _osutext
-            print(f'{time.strftime("%Y/%m/%d %H:%M:%S",time.localtime())}:{self.p}')
 
 
 if __name__ == '__main__':
