@@ -1,6 +1,6 @@
 # 注意事项  
 
-### 此工具依赖于下列项目，请确保已经知悉对应项目的是用  
+### 此工具依赖于下列项目，请确保已经知悉对应项目的使用  
 osb https://github.com/obsproject/obs-studio  
 Gosumemory https://github.com/l3lackShark/gosumemory  
 LLin https://github.com/MATRIX-feather/LLin/  
