@@ -18,6 +18,10 @@ python
 >python getGosuMemory.py  
 
 #### obs端
+=======
+>python getGosuMemory.py  
+
+#### obs端
 >工具->脚本  
 >1. python设置->填入你的python安装目录(加载成功会显示你的python版本)  
 >2. 脚本  
@@ -25,6 +29,7 @@ python
 >>找到工具端的目录  
 >>加载文件名为“obsSetSense.py”的脚本  
 >>根据说明提示选择obs场景  
+
 
 
 #### 一些值的解析
