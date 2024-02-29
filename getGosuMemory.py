@@ -1,13 +1,13 @@
 import json
 import time
 import asyncio
-import websockets
 
+from aiowebsocket.converses import AioWebSocket as AioWs
 from multiprocessing import shared_memory
 
 class app():
 
-    osuMemoryData = ['play_state',"_play_state",'mapstr', "".zfill(1024),"allGosumemoryData".zfill(6144)]
+    osuMemoryData = ["_play_state","".zfill(1024),"allGosumemoryData".zfill(30960)]
 
     def __init__(self, url="ws://127.0.0.1:24050/ws"):
         self.wsurl = url
@@ -20,19 +20,24 @@ class app():
 
 
     async def connectWsServer(self):
+
+        async def getWsRes():
+            async with AioWs(self.wsurl) as ws:
+                converse = ws.manipulator
+                while True:
+                    wsRes = await converse.receive()
+                    asyncio.ensure_future(self.setOsuData(wsRes))
+
         while True:
             try:
-                async with websockets.connect(self.wsurl) as ws:
-                    wsRes = await ws.recv()
-                    asyncio.ensure_future(self.setOsuData(wsRes))
-            except:
-                print(f'无法连接{self.wsurl}')
-                await asyncio.sleep(1)
+                await getWsRes()
+            except Exception as e:
+                print(e)
                 continue
 
 
     async def setOsuData(self, wsRes):
-        self.p[4] = wsRes
+        self.p[2] = wsRes
         wsRes = json.loads(wsRes)
         _mapdata = wsRes.get('menu', dict).get('bm', None)
         _mapselectmod = wsRes.get('menu', dict).get('mods', dict).get('str', None)
@@ -41,11 +46,10 @@ class app():
             _metadata = _mapdata['metadata']
             _map_stats = _mapdata['stats']
             _osutext = f"{_metadata.get('artist')} - {_metadata['title']}[{_metadata['difficulty']}]\nMapper:{_metadata['mapper']}  url: b/{_mapdata['id']}\nstar:{round(_map_stats['SR'],1)} AR:{_map_stats['AR']} CS:{_map_stats['CS']} OD:{_map_stats['OD']} HP:{_map_stats['HP']}{f'  +{_mapselectmod}' if _mapselectmod not in ('NM',None) else ''}"
-            osuMemoryData = ['play_state',_play_state,'mapstr', _osutext]
 
-            if _play_state != self.p[1] or _osutext != self.p[3]:
-                self.p[1] = _play_state
-                self.p[3] = _osutext
+            if _play_state != self.p[0] or _osutext != self.p[1]:
+                self.p[0] = _play_state
+                self.p[1] = _osutext
 
 
 if __name__ == '__main__':
