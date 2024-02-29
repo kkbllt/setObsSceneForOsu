@@ -14,7 +14,7 @@ python  ver3.9
 >pip install -r requirements.txt  
 >python getGosuMemory.py  
 >  
->如网络较差可以在pip指令最后添加 -i https://pypi.tuna.tsinghua.edu.cn/simple 来临时使用tuna源加速
+>如网络较差可以在pip指令最后添加 -i https://pypi.tuna.tsinghua.edu.cn/simple 来临时使用tuna源加速  
 >为确保资源实时性请勿添加任何timesleep
   
   
