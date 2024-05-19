@@ -2,7 +2,7 @@
 
 ### 此工具依赖于下列项目，请确保已经知悉对应项目的使用
 osb https://github.com/obsproject/obs-studio  
-Gosumemory https://github.com/l3lackShark/gosumemory  
+tosu https://github.com/KotRikD/tosu  
 LLin https://github.com/MATRIX-feather/LLin/  
 python  ver3.9
 
@@ -33,6 +33,6 @@ python  ver3.9
 >>res \[_play_state', 'mapdatastr', 'allGosumemoryData'\]  
 >>res\[0\] '_play_state' int 返回你的游戏状态  
 >>res\[1\] 'mapdatastr' str 经过getGosuMemory处理的简易文本  
->>res\[2\] 'allGosumemoryData' str GosuMemory/LLin返回的原始数据  
+>>res\[2\] 'allGosumemoryData' str tosu/LLin返回的原始数据  
 >
 >app(url) 可选参数url如果你的GosuMemory有修改过ws服务器地址则需要填写。示例app(url = 'ws//127.0.0.1:24050/ws')

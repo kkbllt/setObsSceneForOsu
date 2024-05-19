@@ -7,7 +7,7 @@ from multiprocessing import shared_memory
 
 class app():
 
-    osuMemoryData = ["_play_state","".zfill(1024),"allGosumemoryData".zfill(30960)]
+    osuMemoryData = ["_play_state","".zfill(1024),"allGosumemoryData".zfill(2949120)]
 
     def __init__(self, url="ws://127.0.0.1:24050/ws"):
         self.wsurl = url
