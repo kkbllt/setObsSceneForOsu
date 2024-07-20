@@ -45,7 +45,7 @@ class app():
         if None not in (_mapdata, _play_state):
             _metadata = _mapdata['metadata']
             _map_stats = _mapdata['stats']
-            _osutext = f"{_metadata.get('artist')} - {_metadata['title']}[{_metadata['difficulty']}]\nMapper:{_metadata['mapper']}  url: b/{_mapdata['id']}\nstar:{round(_map_stats['SR'],1)} AR:{_map_stats['AR']} CS:{_map_stats['CS']} OD:{_map_stats['OD']} HP:{_map_stats['HP']}{f'  +{_mapselectmod}' if _mapselectmod not in ('NM',None) else ''}"
+            _osutext = f"{_metadata.get('artist')} - {_metadata['title']}[{_metadata['difficulty']}]\nMapper:{_metadata['mapper']}  url: b/{_mapdata['id']}\nstar:{round(_map_stats['fullSR'],2)} AR:{_map_stats['AR']} CS:{_map_stats['CS']} OD:{_map_stats['OD']} HP:{_map_stats['HP']}{f'  +{_mapselectmod}' if _mapselectmod not in ('NM',None) else ''}"
 
             if _play_state != self.p[0] or _osutext != self.p[1]:
                 self.p[0] = _play_state
