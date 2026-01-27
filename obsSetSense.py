@@ -17,7 +17,7 @@ def reload_scene():
 
     res = shared_memory.ShareableList(name='osumemory')
 
-    _play_state = res[1]
+    _play_state = res[0]
 
     def _setText(_text):
         _textsource = obs.obs_get_source_by_name(playing_source_name)
@@ -30,8 +30,8 @@ def reload_scene():
     nowScene = obs.obs_frontend_get_current_scene()
     nowScenename = obs.obs_source_get_name(nowScene)
     obs.obs_source_release(nowScene)
-    if '_play_state' not in res or "".zfill(1024) not in res:
-        _osutext = res[3]
+    if '_play_state' not in res or "mapstr".zfill(1024) not in res:
+        _osutext = res[1]
         if nowText != _osutext:
             _setText(_osutext)
             nowText = _osutext

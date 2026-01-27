@@ -43,10 +43,17 @@ class app():
         _mapselectmod = wsRes.get('menu', dict).get('mods', dict).get('str', None)
         _play_state = wsRes.get('menu', dict).get('state', None)
         if None not in (_mapdata, _play_state):
-            _metadata = _mapdata['metadata']
+            _metadata = _mapdata
             _map_stats = _mapdata['stats']
-            _osutext = f"{_metadata.get('artist')} - {_metadata['title']}[{_metadata['difficulty']}]\nMapper:{_metadata['mapper']}  url: b/{_mapdata['id']}\nstar:{round(_map_stats['fullSR'],2)} AR:{_map_stats['AR']} CS:{_map_stats['CS']} OD:{_map_stats['OD']} HP:{_map_stats['HP']}{f'  +{_mapselectmod}' if _mapselectmod not in ('NM',None) else ''}"
+            now_star = f'{"Star"}:{round(_map_stats['stars']["total"],2)}'
+            
+            if not bool(_Art := _metadata.get('artistUnicode',"")):
+                _Art = _metadata['artist']
+            if not bool(_Title := _metadata.get('titleUnicode',"")):
+                _Title = _metadata['title']
 
+            _osutext = f"{_Art} - {_Title}[{_metadata['version']}]\nMapper:{_metadata['mapper']}  url: b/{_mapdata['set']}\n{now_star} AR:{_map_stats['ar']['converted']} CS:{_map_stats['cs']['converted']} OD:{_map_stats['od']['converted']} HP:{_map_stats['hp']['converted']}{f'  +{_mapselectmod}' if _mapselectmod not in ('NM',None,"") else ''}"
+            
             if _play_state != self.p[0] or _osutext != self.p[1]:
                 self.p[0] = _play_state
                 self.p[1] = _osutext

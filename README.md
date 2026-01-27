@@ -3,7 +3,7 @@
 ### 此工具依赖于下列项目，请确保已经知悉对应项目的使用
 osb https://github.com/obsproject/obs-studio  
 tosu https://github.com/KotRikD/tosu  
-LLin https://github.com/MATRIX-feather/LLin/  
+~~LLin https://github.com/MATRIX-feather/LLin/~~ 项目已移除gosu类支持  
 python  ver3.9
 
    
